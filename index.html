@@ -4,112 +4,246 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CELUTAZ</title>
+<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/2910/2910765.png">
+<meta name="description" content="Compra celulares nuevos y usados en CELUTAZ. iPhone, Samsung, Xiaomi, Redmi y más. Servicio técnico incluido.">
+<meta name="keywords" content="celulares, iPhone, Samsung, Redmi, Xiaomi, celulares usados, celulares nuevos, venta de celulares">
+<meta name="author" content="CELUTAZ">
 
 <style>
+html { scroll-behavior: smooth; }
 
 body{
-margin:0;
-font-family:Arial, Helvetica, sans-serif;
-background: linear-gradient(135deg,#000000,#1a0000,#330000);
-color:white;
-animation:fondo 8s infinite alternate;
+  margin:0;
+  font-family:Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg,#000000,#1a0000,#330000);
+  color:white;
+  animation:fondo 8s infinite alternate;
 }
 
 @keyframes fondo{
-0%{background: linear-gradient(135deg,#000000,#1a0000,#330000);}
-100%{background: linear-gradient(135deg,#330000,#000000,#1a0000);}
+  0%{background: linear-gradient(135deg,#000000,#1a0000,#330000);}
+  100%{background: linear-gradient(135deg,#330000,#000000,#1a0000);}
 }
 
 nav{
-background:#111;
-padding:15px;
-text-align:center;
-position:sticky;
-top:0;
+  background:#111;
+  padding:15px;
+  text-align:center;
+  position:sticky;
+  top:0;
+  z-index:100;
 }
 
 nav a{
-color:#ff2b2b;
-margin:0 20px;
-text-decoration:none;
-font-weight:bold;
+  color:#ff2b2b;
+  margin:0 20px;
+  text-decoration:none;
+  font-weight:bold;
 }
 
 section{
-padding:40px 20px;
-text-align:center;
+  padding:40px 20px;
+  text-align:center;
 }
 
 h2{
-color:#ff2b2b;
-margin-bottom:30px;
+  color:#ff2b2b;
+  margin-bottom:30px;
+}
+
+/* Búsqueda y filtro */
+#busqueda, #filtro{
+  margin:15px 10px;
+  padding:8px 12px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
 }
 
 .contenedor{
-display:flex;
-flex-wrap:wrap;
-justify-content:center;
-gap:25px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:25px;
 }
 
 .card{
-background:#111;
-border-radius:15px;
-width:260px;
-padding:15px;
-box-shadow:0 0 20px rgba(255,0,0,0.4);
-transition:0.4s;
+  background:#111;
+  border-radius:15px;
+  width:260px;
+  padding:15px;
+  box-shadow:0 0 20px rgba(255,0,0,0.4);
+  transition:0.4s;
+  cursor:pointer;
 }
 
 .card:hover{
-transform:scale(1.05);
-box-shadow:0 0 30px rgba(255,0,0,0.8);
+  transform:scale(1.05);
+  box-shadow:0 0 30px rgba(255,0,0,0.8);
 }
 
 .card img{
-width:100%;
-height:250px;
-object-fit:contain;
+  width:100%;
+  height:250px;
+  object-fit:contain;
+  transition: transform 0.3s ease;
+}
+
+.card img:hover{
+  transform: scale(1.1);
 }
 
 .precio{
-color:#00ff88;
-font-size:18px;
-font-weight:bold;
+  color:#00ff88;
+  font-size:18px;
+  font-weight:bold;
 }
 
-.btn-wsp{
-display:inline-block;
-margin-top:8px;
-padding:8px 12px;
-background:#25D366;
-color:white;
-text-decoration:none;
-border-radius:8px;
+.btn-wsp, .btn-carrito {
+  display:inline-block;
+  margin-top:8px;
+  padding:8px 12px;
+  background:#25D366;
+  color:white;
+  text-decoration:none;
+  border:none;
+  border-radius:25px;
+  font-weight:bold;
+  cursor:pointer;
+  transition:background-color 0.3s, transform 0.2s;
+  box-shadow:0 4px 6px rgba(0,0,0,0.1);
+}
+
+.btn-wsp:hover, .btn-carrito:hover {
+  background-color:#1ebe57;
+  transform:scale(1.05);
 }
 
 .rating{
-margin:10px 0;
-font-size:22px;
+  margin:10px 0;
+  font-size:22px;
 }
 
 .star{
-cursor:pointer;
-color:gray;
+  cursor:pointer;
+  color:gray;
 }
 
 .star.active{
-color:gold;
+  color:gold;
 }
 
 .info-rating{
-font-size:13px;
-color:#ccc;
+  font-size:13px;
+  color:#ccc;
+}
+
+/* Carrito */
+#carrito {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  width: 200px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: #111;
+  border: 2px solid #ff2b2b;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 0 20px rgba(255,0,0,0.6);
+  z-index: 1000;
+}
+
+#carrito h3 {
+  margin-top: 0;
+  color: #ff2b2b;
+  text-align: center;
+}
+
+#items-carrito .item-carrito {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 8px 0;
+  border-bottom: 1px solid #333;
+  padding-bottom: 5px;
+}
+
+.item-carrito span {
+  display: block;
+}
+
+.item-carrito button {
+  background: #ff2b2b;
+  border: none;
+  color: white;
+  padding: 2px 6px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#vaciar-carrito {
+  margin-top: 10px;
+  width: 100%;
+  padding: 8px;
+  background: #ff2b2b;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Modal */
+#modal{
+  display:none;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgba(0,0,0,0.9);
+  justify-content:center;
+  align-items:center;
+  z-index:2000;
+}
+
+#modal .contenido{
+  background:#111;
+  padding:20px;
+  border-radius:15px;
+  max-width:500px;
+  width:90%;
+  color:white;
+  text-align:left;
+  position:relative;
+}
+
+#modal .cerrar{
+  position:absolute;
+  top:10px;
+  right:15px;
+  font-size:25px;
+  cursor:pointer;
+  color:#ff2b2b;
+}
+
+/* Botón volver arriba */
+#btnArriba{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  background:#ff2b2b;
+  color:white;
+  padding:10px 15px;
+  border:none;
+  border-radius:50%;
+  font-size:20px;
+  cursor:pointer;
+  display:none;
+  z-index:100;
 }
 
 </style>
 </head>
-
 <body>
 
 <nav>
@@ -118,6 +252,20 @@ color:#ccc;
 <a href="#usados">Exhibición</a>
 <a href="#iphone">iPhone</a>
 </nav>
+
+<!-- Búsqueda y filtro -->
+<div style="text-align:center;">
+  <input type="text" id="busqueda" placeholder="Buscar producto...">
+  <select id="filtro">
+    <option value="">Todas las marcas</option>
+    <option value="Samsung">Samsung</option>
+    <option value="Xiaomi">Xiaomi</option>
+    <option value="iPhone">iPhone</option>
+    <option value="Oppo">Oppo</option>
+    <option value="Tecno">Tecno</option>
+    <option value="Motorola">Motorola</option>
+  </select>
+</div>
 
 <section id="inicio">
 <h2>Bienvenidos a CELUTAZ</h2>
@@ -130,20 +278,138 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <section id="nuevos">
 <h2>Teléfonos Nuevos</h2>
-
 <div class="contenedor">
 
-<div class="card" data-producto="redmi15plus">
-<img src="https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-13-pro-plus.jpg">
-<h3>Redmi Note 15 Pro Plus</h3>
-<p>12GB RAM - 512GB</p>
-<p>Cámara 200MP</p>
-
+<!-- Samsung A56 -->
+<div class="card" data-producto="samsunga56" data-info="8GB RAM - 256GB. Nuevo." data-precio="1_200_000">
+<img src="https://tse1.mm.bing.net/th/id/OIP.gglvsVO3NxwA_BYQ0YJMiwHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Samsung A56">
+<h3>Samsung A56</h3>
+<p>8GB RAM - 256GB</p>
 <div class="rating"></div>
 <div class="info-rating"></div>
-
-<p class="precio">$1.500.000</p>
+<p class="precio">$1.200.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Samsung A36 -->
+<div class="card" data-producto="samsunga36" data-info="6GB RAM - 128GB. Nuevo." data-precio="900_000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a36.jpg" alt="Samsung A36">
+<h3>Samsung A36</h3>
+<p>6GB RAM - 128GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">$900.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Samsung A17 -->
+<div class="card" data-producto="samsunga17" data-info="4GB RAM - 64GB. Nuevo." data-precio="700_000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a17.jpg" alt="Samsung A17">
+<h3>Samsung A17</h3>
+<p>4GB RAM - 64GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">$700.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Samsung A07 -->
+<div class="card" data-producto="samsunga07" data-info="3GB RAM - 32GB. Nuevo." data-precio="500_000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/samsung-galaxy-a07.jpg" alt="Samsung A07">
+<h3>Samsung A07</h3>
+<p>3GB RAM - 32GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">$500.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Redmi 15 -->
+<div class="card" data-producto="redmi15" data-info="8GB RAM - 128GB. Nuevo." data-precio="1_100_000">
+<img src="https://tse2.mm.bing.net/th/id/OIP.Y6mBj3ItZvWW89gr4OafnwEsEs?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Redmi 15">
+<h3>Redmi 15</h3>
+<p>8GB RAM - 128GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">$1.100.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Note 15 -->
+<div class="card" data-producto="note15" data-info="8GB RAM - 128GB / 256GB. Nuevo." data-precio="1_200_000">
+<img src="https://tse1.mm.bing.net/th/id/OIP.HsSOsQCzgb74lDaZJAspZQHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Note 15">
+<h3>Note 15</h3>
+<p>8GB RAM - 128GB / 256GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.200.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Note 15 Pro -->
+<div class="card" data-producto="note15pro" data-info="8GB RAM - 128GB / 256GB / 512GB. Nuevo." data-precio="1_500_000">
+<img src="https://www.mobiledokan.com/media/xiaomi-redmi-note-15-pro-glacier-blue-official-color-image.webp" alt="Note 15 Pro">
+<h3>Note 15 Pro</h3>
+<p>8GB RAM - 128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.500.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Note 15 Pro 5G -->
+<div class="card" data-producto="note15pro5g" data-info="12GB RAM - 256GB / 512GB. Nuevo." data-precio="1_700_000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/xiaomi-redmi-note-15-pro-5g.jpg" alt="Note 15 Pro 5G">
+<h3>Note 15 Pro 5G</h3>
+<p>12GB RAM - 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.700.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Note 15 Pro Plus -->
+<div class="card" data-producto="note15proplus" data-info="12GB RAM - 256GB / 512GB. Nuevo." data-precio="1_800_000">
+<img src="https://dam.elcorteingles.es/producto/www-001057063614150-00.jpg?impolicy=Resize&width=1200&height=1200" alt="Note 15 Pro Plus">
+<h3>Note 15 Pro Plus</h3>
+<p>12GB RAM - 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.800.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Xiaomi 15T Pro -->
+<div class="card" data-producto="xiaomi15tpro" data-info="12GB RAM - 256GB / 512GB. Nuevo." data-precio="2_000_000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/xiaomi-15t-pro.jpg" alt="Xiaomi 15T Pro">
+<h3>Xiaomi 15T Pro</h3>
+<p>12GB RAM - 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $2.000.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- Magic 7 Lite -->
+<div class="card" data-producto="magic7lite" data-info="8GB RAM - 128GB / 256GB. Nuevo." data-precio="1_300_000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/honor-magic7-lite.jpg" alt="Magic 7 Lite">
+<h3>Magic 7 Lite</h3>
+<p>8GB RAM - 128GB / 256GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.300.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 </div>
@@ -151,9 +417,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <section id="usados">
 <h2>Teléfonos Exhibición</h2>
-
 <div class="contenedor">
-
 <div class="card" data-producto="redmi15pro">
 <img src="https://mobileinto.com/images/Xiaomi-Redmi-Note-15-Pro.jpg">
 <h3>Redmi Note 15 Pro 5G</h3>
@@ -165,6 +429,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$1.000.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 <div class="card" data-producto="camon40">
@@ -178,6 +443,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$1.100.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 <div class="card" data-producto="note13pro">
@@ -191,6 +457,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$450.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 <div class="card" data-producto="note13plus">
@@ -204,6 +471,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$750.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 <div class="card" data-producto="a55">
@@ -228,6 +496,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$550.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 <div class="card" data-producto="a33">
@@ -252,6 +521,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$400.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 <div class="card" data-producto="edge60">
@@ -264,6 +534,7 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <p class="precio">$650.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 </div>
@@ -271,79 +542,348 @@ Tecnología actualizada junto a excelentes opciones de segunda en perfecto estad
 
 <section id="iphone">
 <h2>iPhone</h2>
-
 <div class="contenedor">
 
-<div class="card" data-producto="iphone13">
-<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13.jpg">
-<h3>iPhone 13</h3>
-<p>128GB</p>
-
+<!-- iPhone 16 Pro Max -->
+<div class="card" data-producto="iphone16promax" data-info="Disponible en 256GB / 512GB / 1TB / 2TB. Nuevo." data-precio="2200000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-16-pro-max.jpg" alt="iPhone 16 Pro Max">
+<h3>iPhone 16 Pro Max</h3>
+<p>256GB / 512GB / 1TB / 2TB</p>
 <div class="rating"></div>
 <div class="info-rating"></div>
-
-<p class="precio">$1.300.000</p>
+<p class="precio">Desde $2.200.000</p>
 <a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 16 Pro -->
+<div class="card" data-producto="iphone16pro" data-info="Disponible en 256GB / 512GB / 1TB. Nuevo." data-precio="2000000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-16-pro.jpg" alt="iPhone 16 Pro">
+<h3>iPhone 16 Pro</h3>
+<p>256GB / 512GB / 1TB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $2.000.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 16 -->
+<div class="card" data-producto="iphone16" data-info="Disponible en 128GB / 256GB / 512GB. Nuevo." data-precio="1 600 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-16.jpg" alt="iPhone 16">
+<h3>iPhone 16</h3>
+<p>128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.600.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 15 Pro Max -->
+<div class="card" data-producto="iphone15promax" data-info="Disponible en 128GB / 256GB / 512GB / 1TB. Nuevo." data-precio="2 100 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-15-pro-max.jpg" alt="iPhone 15 Pro Max">
+<h3>iPhone 15 Pro Max</h3>
+<p>128GB / 256GB / 512GB / 1TB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $2.100.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 15 Pro -->
+<div class="card" data-producto="iphone15pro" data-info="Disponible en 128GB / 256GB / 512GB / 1TB. Nuevo." data-precio="1 900 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-15-pro.jpg" alt="iPhone 15 Pro">
+<h3>iPhone 15 Pro</h3>
+<p>128GB / 256GB / 512GB / 1TB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.900.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 15 -->
+<div class="card" data-producto="iphone15" data-info="Disponible en 128GB / 256GB / 512GB. Nuevo." data-precio="1 500 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-15.jpg" alt="iPhone 15">
+<h3>iPhone 15</h3>
+<p>128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.500.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 14 Pro Max -->
+<div class="card" data-producto="iphone14promax" data-info="Disponible en 128GB / 256GB / 512GB / 1TB. Nuevo." data-precio="2 000 000">
+<img src="https://m.media-amazon.com/images/I/71T5NVOgbpL._AC_SL1500_.jpg" alt="iPhone 14 Pro Max">
+<h3>iPhone 14 Pro Max</h3>
+<p>128GB / 256GB / 512GB / 1TB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $2.000.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 14 Pro -->
+<div class="card" data-producto="iphone14pro" data-info="Disponible en 128GB / 256GB / 512GB. Nuevo." data-precio="1 800 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-14-pro.jpg" alt="iPhone 14 Pro">
+<h3>iPhone 14 Pro</h3>
+<p>128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.800.000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 14 -->
+<div class="card" data-producto="iphone14" data-info="Disponible en 128GB / 256GB. Nuevo." data-precio="1 400 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-14.jpg" alt="iPhone 14">
+<h3>iPhone 14</h3>
+<p>128GB / 256GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.400 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 13 Pro Max -->
+<div class="card" data-producto="iphone13promax" data-info="Disponible en 128GB / 256GB / 512GB. Nuevo." data-precio="1 900 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13-pro-max.jpg" alt="iPhone 13 Pro Max">
+<h3>iPhone 13 Pro Max</h3>
+<p>128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.900 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 13 Pro -->
+<div class="card" data-producto="iphone13pro" data-info="Disponible en 128GB / 256GB / 512GB. Nuevo." data-precio="1 700 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13-pro.jpg" alt="iPhone 13 Pro">
+<h3>iPhone 13 Pro</h3>
+<p>128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.700 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 13 -->
+<div class="card" data-producto="iphone13" data-info="Disponible en 128GB / 256GB. Nuevo." data-precio="1 300 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-13.jpg" alt="iPhone 13">
+<h3>iPhone 13</h3>
+<p>128GB / 256GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.300 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 12 Pro Max -->
+<div class="card" data-producto="iphone12promax" data-info="Disponible en 128GB / 256GB / 512GB. Nuevo." data-precio="1 800 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-12-pro-max.jpg" alt="iPhone 12 Pro Max">
+<h3>iPhone 12 Pro Max</h3>
+<p>128GB / 256GB / 512GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.800 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 12 Pro -->
+<div class="card" data-producto="iphone12pro" data-info="Disponible en 128GB / 256GB. Nuevo." data-precio="1 600 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-12-pro.jpg" alt="iPhone 12 Pro">
+<h3>iPhone 12 Pro</h3>
+<p>128GB / 256GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.600 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
+</div>
+
+<!-- iPhone 12 -->
+<div class="card" data-producto="iphone12" data-info="Disponible en 64GB / 128GB. Nuevo." data-precio="1 200 000">
+<img src="https://fdn2.gsmarena.com/vv/bigpic/apple-iphone-12.jpg" alt="iPhone 12">
+<h3>iPhone 12</h3>
+<p>64GB / 128GB</p>
+<div class="rating"></div>
+<div class="info-rating"></div>
+<p class="precio">Desde $1.200 000</p>
+<a class="btn-wsp" href="https://wa.me/573134257992">WhatsApp</a>
+<button class="btn-carrito">Agregar al carrito</button>
 </div>
 
 </div>
 </section>
 
+<!-- Carrito -->
+<div id="carrito">
+  <h3>Mi Carrito 🛒</h3>
+  <div id="items-carrito"></div>
+  <p id="total-carrito">Total: $0</p>
+  <button id="vaciar-carrito">Vaciar Carrito</button>
+</div>
+
+<!-- Modal de producto -->
+<div id="modal">
+  <div class="contenido">
+    <span class="cerrar">×</span>
+    <h3 id="modal-titulo"></h3>
+    <img id="modal-img" src="" style="width:100%; margin:10px 0;">
+    <p id="modal-info"></p>
+    <p id="modal-precio" class="precio"></p>
+    <a id="modal-wsp" class="btn-wsp" href="" target="_blank">WhatsApp</a>
+  </div>
+</div>
+
+<button id="btnArriba">↑</button>
+
 <script>
+// Scroll botón arriba
+const btnArriba = document.getElementById("btnArriba");
+window.onscroll = ()=>{ btnArriba.style.display = window.scrollY > 300 ? "block" : "none"; };
+btnArriba.onclick = ()=>{ window.scrollTo({top:0, behavior:'smooth'}); };
+
+// Modal
+const modal = document.getElementById("modal");
+const modalTitulo = document.getElementById("modal-titulo");
+const modalImg = document.getElementById("modal-img");
+const modalInfo = document.getElementById("modal-info");
+const modalPrecio = document.getElementById("modal-precio");
+const modalWsp = document.getElementById("modal-wsp");
 
 document.querySelectorAll(".card").forEach(card=>{
-
-const rating=card.querySelector(".rating");
-const info=card.querySelector(".info-rating");
-const id=card.dataset.producto;
-
-let data=JSON.parse(localStorage.getItem(id))||{total:0,votos:0};
-
-function pintar(estrellas){
-
-rating.innerHTML="";
-
-for(let i=1;i<=5;i++){
-
-let star=document.createElement("span");
-star.innerHTML="★";
-star.classList.add("star");
-
-if(i<=estrellas) star.classList.add("active");
-
-star.onclick=()=>{
-
-data.total+=i;
-data.votos++;
-
-localStorage.setItem(id,JSON.stringify(data));
-
-actualizar();
-
-};
-
-rating.appendChild(star);
-
-}
-
-}
-
-function actualizar(){
-
-let promedio=data.votos? (data.total/data.votos).toFixed(1):0;
-
-pintar(Math.round(promedio));
-
-info.innerHTML="⭐ "+promedio+" / 5 ("+data.votos+" votos)";
-
-}
-
-actualizar();
-
+  card.addEventListener("click", e=>{
+    // Evitar que se abra al click en botones
+    if(e.target.classList.contains("btn-carrito") || e.target.classList.contains("btn-wsp")) return;
+    modal.style.display="flex";
+    modalTitulo.innerText = card.querySelector("h3").innerText;
+    modalImg.src = card.querySelector("img").src;
+    modalInfo.innerText = card.dataset.info || "";
+    modalPrecio.innerText = card.dataset.precio ? "Desde $" + parseInt(card.dataset.precio.replace(/_/g,'')).toLocaleString() : "";
+    modalWsp.href = "https://wa.me/573134257992?text=Hola!%20Estoy%20interesado%20en%20el%20" + encodeURIComponent(modalTitulo.innerText);
+  });
 });
 
-</script>
+document.querySelector(".cerrar").onclick = ()=>{ modal.style.display="none"; };
+window.onclick = e=>{ if(e.target==modal) modal.style.display="none"; };
 
+// Búsqueda y filtro
+const busqueda = document.getElementById("busqueda");
+const filtro = document.getElementById("filtro");
+const cards = document.querySelectorAll(".card");
+
+function filtrarProductos(){
+  const texto = busqueda.value.toLowerCase();
+  const marca = filtro.value;
+  cards.forEach(card=>{
+    const nombre = card.querySelector("h3").innerText.toLowerCase();
+    const cardMarca = card.dataset.producto.toLowerCase();
+    const coincideMarca = !marca || cardMarca.includes(marca.toLowerCase());
+    const coincideTexto = !texto || nombre.includes(texto);
+    card.style.display = (coincideMarca && coincideTexto) ? "block" : "none";
+  });
+}
+
+busqueda.addEventListener("input", filtrarProductos);
+filtro.addEventListener("change", filtrarProductos);
+
+// Rating
+document.querySelectorAll(".card").forEach(card=>{
+  const rating=card.querySelector(".rating");
+  const info=card.querySelector(".info-rating");
+  const id=card.dataset.producto;
+  let data=JSON.parse(localStorage.getItem(id))||{total:0,votos:0};
+
+  function pintar(estrellas){
+    rating.innerHTML="";
+    for(let i=1;i<=5;i++){
+      let star=document.createElement("span");
+      star.innerHTML="★";
+      star.classList.add("star");
+      if(i<=estrellas) star.classList.add("active");
+      star.onclick=()=>{ 
+        data.total+=i; 
+        data.votos++; 
+        localStorage.setItem(id,JSON.stringify(data));
+        actualizar();
+      };
+      rating.appendChild(star);
+    }
+  }
+
+  function actualizar(){
+    let promedio=data.votos? (data.total/data.votos).toFixed(1):0;
+    pintar(Math.round(promedio));
+    info.innerHTML="⭐ "+promedio+" / 5 ("+data.votos+" votos)";
+  }
+
+  actualizar();
+});
+
+// Carrito
+let carrito = JSON.parse(localStorage.getItem("carrito")) || {};
+const itemsCarrito = document.getElementById("items-carrito");
+const totalCarrito = document.getElementById("total-carrito");
+const vaciarCarritoBtn = document.getElementById("vaciar-carrito");
+
+function actualizarCarrito() {
+  itemsCarrito.innerHTML = "";
+  let total = 0;
+  for (let key in carrito) {
+    const item = carrito[key];
+    const subtotal = item.precio * item.cantidad;
+    total += subtotal;
+    const div = document.createElement("div");
+    div.classList.add("item-carrito");
+    div.innerHTML = `
+      <span>${item.nombre} x${item.cantidad}</span>
+      <span>$${subtotal.toLocaleString()}</span>
+      <div>
+        <button class="sumar">+</button>
+        <button class="restar">-</button>
+        <button class="eliminar">x</button>
+      </div>
+    `;
+    div.querySelector(".sumar").onclick = () => { item.cantidad++; guardarCarrito(); };
+    div.querySelector(".restar").onclick = () => { item.cantidad>1?item.cantidad--:delete carrito[key]; guardarCarrito(); };
+    div.querySelector(".eliminar").onclick = () => { delete carrito[key]; guardarCarrito(); };
+    itemsCarrito.appendChild(div);
+  }
+  totalCarrito.innerText = `Total: $${total.toLocaleString()}`;
+}
+
+function guardarCarrito() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  actualizarCarrito();
+}
+
+document.querySelectorAll(".btn-carrito").forEach(btn => {
+  btn.addEventListener("click", e => {
+    const card = e.target.closest(".card");
+    const id = card.dataset.producto;
+    const nombre = card.querySelector("h3").innerText;
+    let precio = parseInt(card.dataset.precio.replace(/_/g,''));
+    if(carrito[id]){ carrito[id].cantidad++; } 
+    else { carrito[id] = {nombre, precio, cantidad:1}; }
+    guardarCarrito();
+  });
+});
+
+vaciarCarritoBtn.onclick = () => { carrito = {}; guardarCarrito(); };
+actualizarCarrito();
+
+</script>
 </body>
 </html>
-
